@@ -24,7 +24,7 @@ use App\Http\Controllers\VisitController;
 
 // Rute Halaman Utama (Welcome Page)
 Route::get('/', function () {
-    return view('welcome');
+    return view('/auth/login');
 });
 
 // Authentication Routes

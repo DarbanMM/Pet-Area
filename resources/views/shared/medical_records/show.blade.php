@@ -1,15 +1,12 @@
 {{-- Ini adalah baris pertama dan HARUS menjadi satu-satunya yang menentukan layout master.
      Blade akan memilih antara layouts.admin_app atau layouts.dokter_app berdasarkan role.
      SEMUA TAG HTML DASAR (<html>, <head>, <body>) TIDAK BOLEH ADA DI SINI. --}}
-@if(Auth::user()->role === 'admin')
-    @extends('layouts.admin_app')
-    @section('title', 'Detail Rekam Medis - Admin')
-    @section('header_title', 'Detail Rekam Medis')
-@else {{-- Asumsi ini adalah peran 'dokter' --}}
-    @extends('layouts.dokter_app')
-    @section('title', 'Detail Rekam Medis - Dokter')
-    @section('header_title', 'Detail Rekam Medis')
-@endif
+{{-- Menentukan layout secara dinamis berdasarkan role user --}}
+@extends(Auth::user()->role === 'admin' ? 'layouts.admin_app' : 'layouts.dokter_app')
+
+{{-- Menentukan judul halaman secara dinamis --}}
+@section('title', 'Detail Rekam Medis - ' . (Auth::user()->role === 'admin' ? 'Admin' : 'Dokter'))
+@section('header_title', 'Detail Rekam Medis')
 
 {{-- SEMUA KONTEN HALAMAN INI HARUS BERADA DI DALAM @section('content') DAN @endsection --}}
 @section('content')
